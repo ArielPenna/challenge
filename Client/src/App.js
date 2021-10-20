@@ -8,7 +8,7 @@ export default function App() {
 	const [productos, setProductos] = useState([])
 	const [inicio, setInicio] = useState(0)
 	const [page, setPage] = useState(1)
-	const limite = 6
+	const limite = 10
 	const [contador, setContador] = useState(0)
 	const [query, setQuery] = useState('')
 	const [reverse, setReverse] = useState(false)
@@ -22,6 +22,7 @@ export default function App() {
 				setProductos(data.results.slice(inicio, inicio + limite))
 			})
 			.catch((error) => {
+				console.log('sin resultados')
 				console.error(error)
 			})
 	}
@@ -37,9 +38,6 @@ export default function App() {
 	const handleChange = (e, value) => {
 		setPage(value)
 		let select = value * limite
-		if (select >= 30) {
-			select = 0
-		}
 		setInicio(select)
 		onSearch(query)
 	}
