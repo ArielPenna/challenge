@@ -19,7 +19,7 @@ export default function Paginacion({ contador, page, handleChange }) {
 	const theme = createMuiTheme({
 		palette: {
 			primary: {
-				main: '#FBF159',
+				main: '#06e3d4',
 			},
 		},
 	})

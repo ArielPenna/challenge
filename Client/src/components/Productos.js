@@ -4,21 +4,8 @@ import ProductCard from './ProductCard'
 import Categorias from './Categorias'
 import swal from 'sweetalert'
 
-export default function Productos({ resultado, query }) {
+export default function Productos({ resultado, query, reverse, setReverse }) {
 	const [listaDeProductos, setlistaDeProductos] = useState([])
-	const [ordenarMayorMenor, setOrdenarMayorMenor] = useState([])
-	const [swicht, setSwicht] = useState(true)
-
-	function prueba() {
-		if (swicht) {
-			setSwicht(false)
-			setOrdenarMayorMenor(resultado.reverse())
-			return swicht
-		} else {
-			setSwicht(true)
-			return swicht
-		}
-	}
 
 	function nueva() {
 		setlistaDeProductos([])
@@ -68,15 +55,9 @@ export default function Productos({ resultado, query }) {
 	if (resultado) {
 		return (
 			<div>
-				<Categorias resultado={resultado} nueva={nueva} usado={usado} otros={otros} prueba={prueba} />
+				<Categorias resultado={resultado} nueva={nueva} usado={usado} otros={otros} ordenar={() => setReverse(!reverse)} />
 				<Grid container justify='center'>
-					{listaDeProductos && swicht ? (
-						listaDeProductos.map((e) => (
-							<Grid item md={24} key={e.id}>
-								<ProductCard id={e.id} title={e.title} price={e.price} thumbnail={e.thumbnail.replace('I.jpg', 'B.jpg')} sold_quantity={e.sold_quantity} condition={e.condition} available_quantity={e.available_quantity} query={query} currency={e.currency_id} />
-							</Grid>
-						))
-					) : listaDeProductos && swicht === false ? (
+					{listaDeProductos ? (
 						listaDeProductos.map((e) => (
 							<Grid item md={24} key={e.id}>
 								<ProductCard id={e.id} title={e.title} price={e.price} thumbnail={e.thumbnail.replace('I.jpg', 'B.jpg')} sold_quantity={e.sold_quantity} condition={e.condition} available_quantity={e.available_quantity} query={query} currency={e.currency_id} />

@@ -1,79 +1,36 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import { makeStyles } from "@material-ui/core/styles";
-import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-  },
-}));
+	root: {
+		'& > *': {
+			margin: theme.spacing(1),
+			padding: theme.spacing(3),
+			color: '#06e3d4',
+		},
+		margin: theme.spacing(1),
+		display: 'flex',
+		justifyContent: 'center',
+	},
+}))
 
-export default function Categorias({ resultado, nueva, usado, otros, prueba }) {
-  const classes = useStyles();
-  const theme = createMuiTheme({
-    palette: {
-      primary: {
-        main: "#FBF159",
-      },
-    },
-    fab: {
-      margin: 0,
-      top: "auto",
-      left: 20,
-      bottom: 20,
-      right: "auto",
-      position: "fixed",
-    },
-  });
+export default function Categorias({ resultado, nueva, usado, otros, ordenar }) {
+	const classes = useStyles()
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  if (resultado) {
-    return (
-      <div className={classes.root} position="static">
-        <ThemeProvider theme={theme}>
-          <Button
-            position="static"
-            aria-controls="simple-menu"
-            aria-haspopup="true"
-            onClick={handleClick}
-          >
-            Menu
-          </Button>
-          <Menu
-            id="simple-menu"
-            position="static"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={() => nueva("new")}>Nuevo</MenuItem>
-            <MenuItem onClick={() => usado("used")}>Usado</MenuItem>
-            <MenuItem onClick={() => otros("not_specified")}>Otros</MenuItem>
-            <MenuItem onClick={prueba}>Ordenar por Precio</MenuItem>
-          </Menu>
-        </ThemeProvider>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <h6>...</h6>
-      </div>
-    );
-  }
+	if (resultado) {
+		return (
+			<div className={classes.root} position='static'>
+				<a onClick={() => nueva('new')}>Nuevo</a>
+				<a onClick={() => usado('used')}>Usado</a>
+				<a onClick={() => otros('not_specified')}>Otros</a>
+				<a onClick={ordenar}>Ordenar por Precio</a>
+			</div>
+		)
+	} else {
+		return (
+			<div>
+				<h6>Sin resultados.</h6>
+			</div>
+		)
+	}
 }
